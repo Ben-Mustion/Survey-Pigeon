@@ -8,7 +8,10 @@ require('./models/User');
 require('./models/Survey');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+});
 
 const app = express();
 app.use(bodyParser.json());
