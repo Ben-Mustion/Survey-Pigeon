@@ -12,14 +12,18 @@ const Survey = mongoose.model('surveys');
 module.exports = app => {
   app.get('/api/surveys', requireLogin, async (req, res) => {
     const surveys = await Survey.find({ _user: req.user.id }).select({
-      recipients: false
+      recipients: false,
     });
 
     res.send(surveys);
   });
 
-  app.get('/api/surveys/:surveyId/:choice', (req, res) => {
+  app.get('/api/surveys/:surveyId/yes', (req, res) => {
     res.send('Thanks for your feedback!');
+  });
+
+  app.get('/api/surveys/:surveyId/no', (req, res) => {
+    res.send('I hope we do better next time!');
   });
 
   app.post('/api/surveys/webhooks', (req, res) => {
@@ -32,7 +36,7 @@ module.exports = app => {
           return {
             email,
             surveyId: match.surveyId,
-            choice: match.choice
+            choice: match.choice,
           };
         }
       })
@@ -43,13 +47,13 @@ module.exports = app => {
           {
             _id: surveyId,
             recipients: {
-              $elemMatch: { email: email, responded: false }
-            }
+              $elemMatch: { email: email, responded: false },
+            },
           },
           {
             $inc: { [choice]: 1 },
             $set: { 'recipients.$.responded': true },
-            lastResponded: new Date()
+            lastResponded: new Date(),
           }
         ).exec();
       })
@@ -67,7 +71,7 @@ module.exports = app => {
       body,
       recipients: recipients.split(',').map(email => ({ email: email.trim() })),
       _user: req.user.id,
-      dateSent: Date.now()
+      dateSent: Date.now(),
     });
 
     const mailer = new Mailer(survey, surveyTemplate(survey));
@@ -83,4 +87,18 @@ module.exports = app => {
       res.status(422).send(err);
     }
   });
+
+  app.delete(
+    '/api/surveys/delete/:surveyId',
+    requireLogin,
+    async (req, res) => {
+      Survey.findByIdAndDelete(req.params.surveyId, err => {
+        if (err) {
+          res.status(422).send(err);
+        } else {
+          console.log('Success');
+        }
+      });
+    }
+  );
 };

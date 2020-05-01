@@ -25,13 +25,20 @@ class SurveyForm extends Component {
       <div>
         <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
-          <Link to="/surveys" className="red btn-flat white-text">
-            Cancel
-          </Link>
-          <button type="submit" className="teal btn-flat right white-text">
-            Next
-            <i className="material-icons right">done</i>
-          </button>
+          <div className="ui buttons">
+            <Link className="ui labeled icon button" to="/surveys">
+              <i className="cancel icon"></i>
+              Cancel
+            </Link>
+            <div className="or"></div>
+            <button
+              className="ui right labeled icon button green"
+              type="submit"
+            >
+              Next
+              <i className="right arrow icon"></i>
+            </button>
+          </div>
         </form>
       </div>
     );
@@ -55,5 +62,5 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'surveyForm',
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
 })(SurveyForm);
