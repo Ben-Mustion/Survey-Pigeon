@@ -10,21 +10,30 @@ class Header extends Component {
         return;
       case false:
         return (
-          <li>
-            <a href="/auth/google">Login With Google</a>
-          </li>
+          <div className="ui google plus button">
+            <a style={{ color: 'white' }} href="/auth/google">
+              Login With Google
+            </a>
+            <i style={{ paddingLeft: '10px' }} className="google icon"></i>
+          </div>
         );
       default:
         return [
-          <li key="1">
-            <Payments />
-          </li>,
-          <li key="3" style={{ margin: '0 10px' }}>
+          <div key="1" style={{ margin: '10px' }}>
             Credits: {this.props.auth.credits}
-          </li>,
-          <li key="2">
-            <a href="/api/logout">Logout</a>
-          </li>
+          </div>,
+          <div key="2" className="ui button green">
+            <Payments />
+          </div>,
+          <div
+            key="3"
+            className="negative ui button"
+            style={{ marginLeft: '10px' }}
+          >
+            <a style={{ color: 'white' }} href="/api/logout">
+              Logout
+            </a>
+          </div>,
         ];
     }
   }
@@ -32,17 +41,22 @@ class Header extends Component {
   render() {
     //console.log(this.props);
     return (
-      <nav>
-        <div className="nav-wrapper">
+      <div className="ui menu" style={{ background: '#dbfff3' }}>
+        <h2 className="menu header">
           <Link
+            className="header item"
             to={this.props.auth ? '/surveys' : '/'}
-            className="left brand-logo"
+            style={{ color: 'black' }}
           >
             Emaily
+            <i
+              className="paper plane outline icon"
+              style={{ marginLeft: '10px' }}
+            ></i>
           </Link>
-          <ul className="right">{this.renderContent()}</ul>
-        </div>
-      </nav>
+        </h2>
+        <div className="item right aligned">{this.renderContent()}</div>
+      </div>
     );
   }
 }
