@@ -96,7 +96,7 @@ module.exports = app => {
         if (err) {
           res.status(422).send(err);
         } else {
-          console.log('Success');
+          res.send(req.params.surveyId);
         }
       });
     }

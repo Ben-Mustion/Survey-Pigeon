@@ -12,6 +12,7 @@ class ConfirmModal extends Component {
 
   handleDelete = () => {
     this.props.deleteSurvey(this.props.surveyId);
+    //this.props.fetchSurveys();
     this.setState({ modalOpen: false });
   };
 

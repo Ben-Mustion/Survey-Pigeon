@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Payments from './Payments';
+import HelpModal from './HelpModal';
 
 class Header extends Component {
   renderContent() {
@@ -22,11 +23,15 @@ class Header extends Component {
           <div key="1" style={{ margin: '10px' }}>
             Credits: {this.props.auth.credits}
           </div>,
+
           <div key="2" className="ui button green">
-            <Payments />
+            <Payments text="Add Credits" />
+          </div>,
+          <div key="3" style={{ marginLeft: '10px' }}>
+            <HelpModal />
           </div>,
           <div
-            key="3"
+            key="4"
             className="negative ui button"
             style={{ marginLeft: '10px' }}
           >
@@ -39,7 +44,6 @@ class Header extends Component {
   }
 
   render() {
-    //console.log(this.props);
     return (
       <div className="ui menu" style={{ background: '#dbfff3' }}>
         <h2 className="menu header">
@@ -48,9 +52,9 @@ class Header extends Component {
             to={this.props.auth ? '/surveys' : '/'}
             style={{ color: 'black' }}
           >
-            Emaily
+            Survey Pigeon
             <i
-              className="paper plane outline icon"
+              className="earlybirds outline icon"
               style={{ marginLeft: '10px' }}
             ></i>
           </Link>

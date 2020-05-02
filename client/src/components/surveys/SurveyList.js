@@ -9,10 +9,6 @@ class SurveyList extends Component {
     this.props.fetchSurveys();
   }
 
-  componentDidUpdate() {
-    this.props.fetchSurveys();
-  }
-
   renderSurveys() {
     return this.props.surveys.reverse().map(survey => {
       return (
