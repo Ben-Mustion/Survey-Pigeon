@@ -23,7 +23,7 @@ module.exports = app => {
   });
 
   app.get('/api/surveys/:surveyId/no', (req, res) => {
-    res.send('I hope we do better next time!');
+    res.send('I hope we do better next time! Thanks for your feedback!');
   });
 
   app.post('/api/surveys/webhooks', (req, res) => {
